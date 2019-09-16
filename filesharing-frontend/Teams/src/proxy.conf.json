@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://gruppo0.giancarlocompagno.it",
+    "target": "http://gruppo0.giancarlocompagno.it",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true

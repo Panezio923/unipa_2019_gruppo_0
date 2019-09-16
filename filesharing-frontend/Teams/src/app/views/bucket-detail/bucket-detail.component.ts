@@ -103,5 +103,8 @@ export class BucketDetailComponent implements OnInit {
     return this.urlparams.slice(0,index+1).reduce((initial, item)=>{initial.push(item.path); return initial},[]).join('/');
   }
 
+  getPreview(file: ResourceDTO){
+
+  }
 
 }

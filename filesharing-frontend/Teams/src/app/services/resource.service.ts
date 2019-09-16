@@ -77,4 +77,9 @@ export class ResourceService implements UploadService{
     return uploadAndProgressObservable;
   }
 
+  public previewFile(uuid: string, bucketName: string, uniqueId: string){
+
+  }
+
+
 }
