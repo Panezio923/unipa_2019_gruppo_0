@@ -30,6 +30,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { FolderDialogComponent } from './dialog/folder-dialog/folder-dialog.component';
 import { FoldersComponent } from './views/folders/folders.component';
 import { MemberPipe } from './pipe/member.pipe';
+import {NgxDocViewerModule} from "ngx-doc-viewer";
+import { PreviewDialogComponent } from './dialog/preview-dialog/preview-dialog.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { MemberPipe } from './pipe/member.pipe';
     BucketDetailComponent,
     FolderDialogComponent,
     FoldersComponent,
-    MemberPipe
+    MemberPipe,
+    PreviewDialogComponent,
   ],
     imports: [
         HttpClientModule,
@@ -66,7 +69,8 @@ import { MemberPipe } from './pipe/member.pipe';
         ReactiveFormsModule,
         KeycloakAngularModule,
         _MatMenuDirectivesModule,
-        MatMenuModule
+        MatMenuModule,
+        NgxDocViewerModule
     ],
   providers:  [    {
     provide: APP_INITIALIZER,
@@ -77,7 +81,8 @@ import { MemberPipe } from './pipe/member.pipe';
   entryComponents:[
     TeamDialogComponent,
     BucketDialogComponent,
-    FolderDialogComponent
+    FolderDialogComponent,
+      PreviewDialogComponent
   ],
   bootstrap: [AppComponent]
 })

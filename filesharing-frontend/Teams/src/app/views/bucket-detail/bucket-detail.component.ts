@@ -7,6 +7,10 @@ import {SYNC_TYPE, SyncService} from "../../services/sync.service";
 import {TeamService} from "../../services/team.service";
 import {UploadProgressModel} from "../../models/UploadProgressModel";
 import {HttpEventType} from "@angular/common/http";
+import {FolderDialogComponent} from "../../dialog/folder-dialog/folder-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {PreviewDialogComponent} from "../../dialog/preview-dialog/preview-dialog.component";
+
 
 class PathDescriptor{
   path: string;
@@ -28,7 +32,8 @@ export class BucketDetailComponent implements OnInit {
   public urlparams: UrlSegment[] = [];
   public folderList: PathDescriptor[];
 
-  constructor(private teamService: TeamService,
+  constructor(public dialog: MatDialog,
+              private teamService: TeamService,
               private bucketService: BucketService,
               private resourceService: ResourceService,
               private syncService: SyncService,
@@ -104,7 +109,14 @@ export class BucketDetailComponent implements OnInit {
   }
 
   getPreview(file: ResourceDTO){
-
+    this.resourceService.preview(this.team, this.bucket, file.uniqueKey);
+    this.openDialogPreview();
   }
 
+  openDialogPreview(): void{
+    const dialogRef = this.dialog.open(PreviewDialogComponent, {
+      width: '50vw',
+      data: {}
+    });
+  }
 }
