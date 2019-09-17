@@ -60,7 +60,7 @@ public class ResourceController {
 	}
 
 	@GetMapping("/preview/{uuid}/{bucketName}/{uniqueId}")
-	public ResponseEntity<Resource> preview(@PathVariable("uuid") UUID uuid,@PathVariable("bucketName") String bucketName,@PathVariable("uniqueId") String uniqueId) throws IOException, InvalidFormatException, DocumentException {
+	public ResponseEntity<Resource> preview(@PathVariable("uuid") UUID uuid,@PathVariable("bucketName") String bucketName,@PathVariable("uniqueId") String uniqueId) throws IOException, InvalidFormatException, DocumentException, com.lowagie.text.DocumentException {
 		byte[] resource = teamService.getPreviewContent(uuid,bucketName,uniqueId);
 		return getResponseEntityResource("", resource);
 	}

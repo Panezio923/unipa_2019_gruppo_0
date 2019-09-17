@@ -189,7 +189,7 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public byte[] getPreviewContent(UUID uuid, String bucketName, String uniqueId) throws InvalidFormatException, IOException, DocumentException {
+	public byte[] getPreviewContent(UUID uuid, String bucketName, String uniqueId) throws InvalidFormatException, IOException, DocumentException, com.lowagie.text.DocumentException {
 
 		Team team = team(uuid);
 		ContentResource contentResource = team.getContent(SecurityContext.getEmail(),bucketName,uniqueId);

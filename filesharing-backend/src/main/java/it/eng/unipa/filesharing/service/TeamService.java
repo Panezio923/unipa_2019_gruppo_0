@@ -46,7 +46,7 @@ public interface TeamService {
 
 	ResourceDTO getContent(UUID uuid, String bucketName, String uniqueId);
 
-	byte[] getPreviewContent(UUID uuid, String bucketName, String uniqueId) throws InvalidFormatException, IOException, DocumentException;
+	byte[] getPreviewContent(UUID uuid, String bucketName, String uniqueId) throws InvalidFormatException, IOException, DocumentException, com.lowagie.text.DocumentException;
 	
 	
 }
