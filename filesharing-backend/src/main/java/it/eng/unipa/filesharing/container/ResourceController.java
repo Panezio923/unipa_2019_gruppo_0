@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.UUID;
 
+import com.itextpdf.text.DocumentException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -58,7 +60,7 @@ public class ResourceController {
 	}
 
 	@GetMapping("/preview/{uuid}/{bucketName}/{uniqueId}")
-	public ResponseEntity<Resource> preview(@PathVariable("uuid") UUID uuid,@PathVariable("bucketName") String bucketName,@PathVariable("uniqueId") String uniqueId) {
+	public ResponseEntity<Resource> preview(@PathVariable("uuid") UUID uuid,@PathVariable("bucketName") String bucketName,@PathVariable("uniqueId") String uniqueId) throws IOException, InvalidFormatException, DocumentException {
 		byte[] resource = teamService.getPreviewContent(uuid,bucketName,uniqueId);
 		return getResponseEntityResource("", resource);
 	}

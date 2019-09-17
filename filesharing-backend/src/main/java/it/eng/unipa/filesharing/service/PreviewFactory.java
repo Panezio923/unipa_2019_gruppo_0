@@ -12,6 +12,9 @@ public class PreviewFactory {
             case "pptx": {
                 return new PreviewPttxService();
             }
+            case "xlsx":{
+                return new PreviewXlsxService();
+            }
             default:
                return new PreviewGenericService();
         }

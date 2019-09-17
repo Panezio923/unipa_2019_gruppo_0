@@ -1,13 +1,16 @@
 package it.eng.unipa.filesharing.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+import com.itextpdf.text.DocumentException;
 import it.eng.unipa.filesharing.dto.BucketDTO;
 import it.eng.unipa.filesharing.dto.BucketTypeDTO;
 import it.eng.unipa.filesharing.dto.MembershipDTO;
 import it.eng.unipa.filesharing.dto.ResourceDTO;
 import it.eng.unipa.filesharing.dto.TeamDTO;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 public interface TeamService {
 	
@@ -43,7 +46,7 @@ public interface TeamService {
 
 	ResourceDTO getContent(UUID uuid, String bucketName, String uniqueId);
 
-	byte[] getPreviewContent(UUID uuid, String bucketName, String uniqueId);
+	byte[] getPreviewContent(UUID uuid, String bucketName, String uniqueId) throws InvalidFormatException, IOException, DocumentException;
 	
 	
 }

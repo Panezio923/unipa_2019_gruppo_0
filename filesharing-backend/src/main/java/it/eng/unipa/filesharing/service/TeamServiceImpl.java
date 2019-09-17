@@ -1,11 +1,14 @@
 package it.eng.unipa.filesharing.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.itextpdf.text.DocumentException;
 import it.eng.unipa.filesharing.dto.*;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
@@ -186,7 +189,7 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public byte[] getPreviewContent(UUID uuid, String bucketName, String uniqueId) {
+	public byte[] getPreviewContent(UUID uuid, String bucketName, String uniqueId) throws InvalidFormatException, IOException, DocumentException {
 
 		Team team = team(uuid);
 		ContentResource contentResource = team.getContent(SecurityContext.getEmail(),bucketName,uniqueId);
