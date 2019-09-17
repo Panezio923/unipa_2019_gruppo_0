@@ -32,6 +32,8 @@ import { FoldersComponent } from './views/folders/folders.component';
 import { MemberPipe } from './pipe/member.pipe';
 import {NgxDocViewerModule} from "ngx-doc-viewer";
 import { PreviewDialogComponent } from './dialog/preview-dialog/preview-dialog.component';
+import {TokenService} from "./services/token.service";
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
   declarations: [
@@ -70,13 +72,14 @@ import { PreviewDialogComponent } from './dialog/preview-dialog/preview-dialog.c
         KeycloakAngularModule,
         _MatMenuDirectivesModule,
         MatMenuModule,
-        NgxDocViewerModule
+        NgxDocViewerModule,
+        PdfViewerModule
     ],
   providers:  [    {
     provide: APP_INITIALIZER,
     useFactory: initializer,
     multi: true,
-    deps: [KeycloakService]
+    deps: [KeycloakService, TokenService]
   }],
   entryComponents:[
     TeamDialogComponent,

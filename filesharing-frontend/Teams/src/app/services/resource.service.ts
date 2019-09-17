@@ -6,6 +6,7 @@ import {UploadProgressModel} from "../models/UploadProgressModel";
 import {share} from "rxjs/operators";
 import {UploadService} from "../models/UploadService";
 import {getToken} from "codelyzer/angular/styles/cssLexer";
+import {TokenService} from "./token.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ResourceService implements UploadService{
 
   private baseUrl: string = environment.apiBaseUrl+"/resource";
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private tokenService : TokenService) { }
 
   public get(uuid: string, bucket: string){
     return this.httpClient.get<ResourceDTO>(this.baseUrl+'/'+uuid+'/'+bucket);
@@ -79,15 +80,16 @@ export class ResourceService implements UploadService{
   }
 
   public preview(uuid: string, bucketName: string, uniqueId: string){
-      let reg = this.httpClient.get(this.baseUrl+'/'+uuid+'/'+bucketName+'/'+uniqueId + '?access_token=' + uuid, {responseType: 'arraybuffer', observe: 'response'}).pipe(share());
-      reg.subscribe(res =>{
-          return this.loadFile(res);
-      });
-      return reg;
+      let url = this.baseUrl+'/'+uuid+'/'+bucketName+'/'+uniqueId;
+      return url;
+  }
+
+  public previewDocuments(uuid: string, bucketName: string, uniqueId: string){
+    let url = this.baseUrl+'/preview/'+uuid+'/'+bucketName+'/'+uniqueId;
+    return url;
   }
 
   private loadFile(data: any){
-
   }
 
 }

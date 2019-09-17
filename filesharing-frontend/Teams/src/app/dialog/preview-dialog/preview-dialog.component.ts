@@ -9,7 +9,8 @@ import {SYNC_TYPE} from "../../services/sync.service";
 })
 
 export class PreviewDialogComponent implements OnInit {
-  constructor(public dialogRef: MatDialog) { }
+  constructor(public dialogRef: MatDialog,
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
   }

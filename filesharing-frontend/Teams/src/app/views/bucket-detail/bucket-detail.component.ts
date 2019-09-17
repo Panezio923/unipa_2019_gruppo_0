@@ -109,14 +109,13 @@ export class BucketDetailComponent implements OnInit {
   }
 
   getPreview(file: ResourceDTO){
-    this.resourceService.preview(this.team, this.bucket, file.uniqueKey);
-    this.openDialogPreview();
+    this.openDialogPreview(this.resourceService.previewDocuments(this.team, this.bucket, file.uniqueKey));
   }
 
-  openDialogPreview(): void{
+  openDialogPreview(url: string): void{
     const dialogRef = this.dialog.open(PreviewDialogComponent, {
       width: '50vw',
-      data: {}
+      data: {url: url}
     });
   }
 }
