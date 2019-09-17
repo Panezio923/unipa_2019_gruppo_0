@@ -56,6 +56,12 @@ public class ResourceController {
 		ResourceDTO resourceDTO = teamService.getContent(uuid,bucketName,uniqueId);
 		return getResponseEntityResource(resourceDTO.getName(), resourceDTO.getContent());
 	}
+
+	@GetMapping("/preview/{uuid}/{bucketName}/{uniqueId}")
+	public ResponseEntity<Resource> preview(@PathVariable("uuid") UUID uuid,@PathVariable("bucketName") String bucketName,@PathVariable("uniqueId") String uniqueId) {
+		byte[] resource = teamService.getPreviewContent(uuid,bucketName,uniqueId);
+		return getResponseEntityResource("", resource);
+	}
 	
 	
 	private ResponseEntity<Resource> getResponseEntityResource(String name, byte[] body) {

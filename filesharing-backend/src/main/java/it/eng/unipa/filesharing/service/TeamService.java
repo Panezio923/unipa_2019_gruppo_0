@@ -42,6 +42,8 @@ public interface TeamService {
 	ResourceDTO addFolder(UUID uuid, String bucketName, String parentUniqueId, String name);
 
 	ResourceDTO getContent(UUID uuid, String bucketName, String uniqueId);
+
+	byte[] getPreviewContent(UUID uuid, String bucketName, String uniqueId);
 	
 	
 }

@@ -33,11 +33,14 @@ public class TeamServiceImpl implements TeamService{
 	private ConversionService conversionService;
 	
 	private List<BucketType> allBucketType;
+
+	private PreviewFactory previewFactory;
 	
-	public TeamServiceImpl(/*@Autowired ResourceRepository resourceRepository,*/@Autowired TeamRepository teamRepository,@Autowired ConversionService conversionService,@Autowired List<BucketType> allBucketType) {
+	public TeamServiceImpl(@Autowired PreviewFactory previewFactory, @Autowired TeamRepository teamRepository,@Autowired ConversionService conversionService,@Autowired List<BucketType> allBucketType) {
 		this.teamRepository = teamRepository;
 		this.conversionService = conversionService;
 		this.allBucketType = allBucketType;
+		this.previewFactory = previewFactory;
 	}
 	
 	@Override
@@ -180,6 +183,23 @@ public class TeamServiceImpl implements TeamService{
 		Team team = team(uuid);
 		ContentResource contentResource = team.getContent(SecurityContext.getEmail(),bucketName,uniqueId);
 		return (ResourceDTO)conversionService.convert(contentResource,TypeDescriptor.valueOf(ContentResource.class), TypeDescriptor.valueOf(ResourceDTO.class));
+	}
+
+	@Override
+	public byte[] getPreviewContent(UUID uuid, String bucketName, String uniqueId) {
+
+		Team team = team(uuid);
+		ContentResource contentResource = team.getContent(SecurityContext.getEmail(),bucketName,uniqueId);
+		String ext = getExt(contentResource.getName());
+		return previewFactory.getService(ext).convert(contentResource.getContent());
+	}
+
+	private String getExt(String fileName){
+		if(fileName != null){
+			String[] splitted = fileName.split("\\.");
+			return splitted[splitted.length-1];
+		}
+		return "";
 	}
 	
 }

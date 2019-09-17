@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.io.*;
 
 @Component
-public class PreviewServiceImpl implements PreviewService {
+public class PreviewDocxService implements PreviewService {
     @Override
     public byte[] convert(byte[] toConvert) {
         try {

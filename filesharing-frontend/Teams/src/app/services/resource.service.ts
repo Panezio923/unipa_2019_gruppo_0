@@ -79,17 +79,11 @@ export class ResourceService implements UploadService{
     return uploadAndProgressObservable;
   }
 
-  public preview(uuid: string, bucketName: string, uniqueId: string){
-      let url = this.baseUrl+'/'+uuid+'/'+bucketName+'/'+uniqueId;
-      return url;
-  }
 
   public previewDocuments(uuid: string, bucketName: string, uniqueId: string){
     let url = this.baseUrl+'/preview/'+uuid+'/'+bucketName+'/'+uniqueId;
     return url;
   }
 
-  private loadFile(data: any){
-  }
 
 }
