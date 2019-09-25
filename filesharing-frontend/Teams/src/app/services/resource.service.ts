@@ -85,5 +85,4 @@ export class ResourceService implements UploadService{
     return url;
   }
 
-
 }

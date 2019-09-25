@@ -10,7 +10,7 @@ import {HttpEventType} from "@angular/common/http";
 import {FolderDialogComponent} from "../../dialog/folder-dialog/folder-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {PreviewDialogComponent} from "../../dialog/preview-dialog/preview-dialog.component";
-
+import {NgxSpinnerService} from "ngx-spinner";
 
 class PathDescriptor{
   path: string;
@@ -37,7 +37,8 @@ export class BucketDetailComponent implements OnInit {
               private bucketService: BucketService,
               private resourceService: ResourceService,
               private syncService: SyncService,
-              private router: ActivatedRoute) { }
+              private router: ActivatedRoute,
+              private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.router.paramMap.subscribe(params=>{
@@ -46,7 +47,7 @@ export class BucketDetailComponent implements OnInit {
       this.bucket = params.get('bucket');
       this.loadResource();
       this.syncService.register().subscribe((type: SYNC_TYPE)=>{
-        console.log("Sync", type)
+        console.log("Sync", type);
         if(type == SYNC_TYPE.Resource){
           this.loadResource();
         }
@@ -57,7 +58,6 @@ export class BucketDetailComponent implements OnInit {
       this.urlparams = data;
       this.navigateFolder(this.originalResources);
     });
-
   }
 
   loadResource(){
@@ -109,13 +109,22 @@ export class BucketDetailComponent implements OnInit {
   }
 
   getPreview(file: ResourceDTO){
-    this.openDialogPreview(this.resourceService.previewDocuments(this.team, this.bucket, file.uniqueKey));
+      this.openDialogPreview(this.resourceService.previewDocuments(this.team, this.bucket, file.uniqueKey), file.name);
   }
 
-  openDialogPreview(url: string): void{
+  openDialogPreview(url: string, title: string): void{
     const dialogRef = this.dialog.open(PreviewDialogComponent, {
       width: '50vw',
-      data: {url: url}
+      data: {url: url, title: title, ext: this.getExt(title)}
     });
   }
+
+  private getExt(fileName : string){
+      if(fileName != null){
+        return fileName.split('.').pop();
+      }
+      return "";
+  }
+
+
 }

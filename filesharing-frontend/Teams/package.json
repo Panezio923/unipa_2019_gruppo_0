@@ -27,6 +27,7 @@
     "keycloak-js": "^6.0.1",
     "ng2-pdf-viewer": "^5.3.4",
     "ngx-doc-viewer": "^0.1.20",
+    "ngx-spinner": "^8.0.3",
     "rxjs": "~6.5.2",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

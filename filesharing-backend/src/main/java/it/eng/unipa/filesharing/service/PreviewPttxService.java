@@ -6,6 +6,7 @@ import com.lowagie.text.Image;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfGraphics2D;
 import com.lowagie.text.pdf.PdfWriter;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
@@ -36,38 +37,32 @@ public class PreviewPttxService implements PreviewService {
         int i = 1;
         int totalSlides = ppt.getSlides().length;
 
-        ByteArrayOutputStream imgOut = new ByteArrayOutputStream();
-        for (XSLFSlide slide : ppt.getSlides()) {
-
-            BufferedImage img = new BufferedImage(pgsize.width, pgsize.height,
-                    BufferedImage.TYPE_INT_RGB);
-            Graphics2D graphics = img.createGraphics();
-            graphics.setPaint(Color.white);
-            graphics.fill(new Rectangle2D.Float(0, 0, pgsize.width,
-                    pgsize.height));
-            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            graphics.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-            graphics.setColor(Color.white);
-            graphics.clearRect(0, 0, width, height);
-            graphics.scale(scale, scale);
-
-
-            slide.draw(graphics);
-            javax.imageio.ImageIO.write(img, "png", imgOut);
-            imgOut.close();
-            i++;
-        }
-
-
         Document document = new Document();
         ByteArrayOutputStream pdfOut = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, pdfOut);
         com.lowagie.text.pdf.PdfPTable table = new com.lowagie.text.pdf.PdfPTable(1);
 
+        for (XSLFSlide slide : ppt.getSlides()) {
+            BufferedImage img = new BufferedImage(pgsize.width, pgsize.height,
+                    BufferedImage.TYPE_INT_RGB);
+            Graphics2D graphics = img.createGraphics();
+//            graphics.setPaint(Color.white);
+//            graphics.fill(new Rectangle2D.Float(0, 0, pgsize.width,
+//                    pgsize.height));
+//            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//            graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+//            graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+//            graphics.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+            graphics.setColor(Color.white);
+            graphics.clearRect(0, 0, width, height);
+            graphics.scale(scale, scale);
 
-        for(int j = 1; j<=totalSlides; j++){
+            slide.draw(graphics);
+            ByteArrayOutputStream imgOut = new ByteArrayOutputStream();
+            javax.imageio.ImageIO.write(img, "jpg", imgOut);
+            imgOut.close();
+            i++;
+
             Image slideImage = Image.getInstance(imgOut.toByteArray());
 
             document.setPageSize(new Rectangle(slideImage.getWidth(), slideImage.getHeight()));
@@ -75,11 +70,12 @@ public class PreviewPttxService implements PreviewService {
             slideImage.setAbsolutePosition(0, 0);
 
             table.addCell(new com.lowagie.text.pdf.PdfPCell(slideImage, true));
-
         }
+
         document.add(table);
         document.close();
         return pdfOut.toByteArray();
-    }
 
+
+    }
 }

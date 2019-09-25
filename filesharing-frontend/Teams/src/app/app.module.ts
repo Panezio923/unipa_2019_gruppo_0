@@ -26,7 +26,7 @@ import { BucketsComponent } from './views/buckets/buckets.component';
 import { BucketDetailComponent } from './views/bucket-detail/bucket-detail.component';
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import {initializer} from "./app-init";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { FolderDialogComponent } from './dialog/folder-dialog/folder-dialog.component';
 import { FoldersComponent } from './views/folders/folders.component';
 import { MemberPipe } from './pipe/member.pipe';
@@ -34,6 +34,10 @@ import {NgxDocViewerModule} from "ngx-doc-viewer";
 import { PreviewDialogComponent } from './dialog/preview-dialog/preview-dialog.component';
 import {TokenService} from "./services/token.service";
 import {PdfViewerModule} from "ng2-pdf-viewer";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {NgxSpinnerModule} from "ngx-spinner";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+
 
 @NgModule({
   declarations: [
@@ -73,7 +77,10 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
         _MatMenuDirectivesModule,
         MatMenuModule,
         NgxDocViewerModule,
-        PdfViewerModule
+        PdfViewerModule,
+        MatGridListModule,
+        NgxSpinnerModule,
+        MatProgressSpinnerModule
     ],
   providers:  [    {
     provide: APP_INITIALIZER,
